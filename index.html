@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Transaction Tracker</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <h1>Transaction Tracker</h1>
+      <div class="container">
+        <div id="add-transaction">
+          <h2>Add Transaction</h2>
+          <div class="transaction-type">
+            <input type="text" id="title" placeholder="Title" required />
+            <select id="category" required>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+          </div>
+
+          <div class="add">
+            <input type="number" id="amount" placeholder="Amount" required />
+            <button id="add-button">Add</button>
+          </div>
+        </div>
+        <div id="transaction-list">
+          <h2>History</h2>
+          <ul id="transactions"></ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
