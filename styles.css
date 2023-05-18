@@ -17,7 +17,8 @@ body {
     display: flex;
     width: 100%;
     border-radius: 0.75rem;
-        border: 1px solid grey;
+    border: 1px solid grey;
+    background-image: url(pattern-background-desktop.svg);
 
 }
 #add-transaction{
@@ -25,13 +26,28 @@ body {
     border-radius: 0.75rem;
     border: 1px solid grey;
     padding: 0rem 4rem 3rem 4rem;
+    width: 50%;
+    justify-content: space-between;
 }
 #transaction-list{
     flex-grow: 1;
     border-radius: 0.75rem;
         /* border: 1px solid grey; */
-        padding: 0rem 4rem 3rem 4rem;
+    /* padding: 0rem 4rem 3rem 4rem; */
+    width: 50%;
 }
+#add-transaction input,
+#add-transaction select {
+    margin-bottom: 10px;
+    /* padding: 1rem 1.5rem; */
+    width: 100%;
+}
+
+#add-button {
+    padding: 5px 10px;
+    margin-top: 1rem;
+}
+
 
 h1{
     color: aqua;
@@ -39,40 +55,36 @@ h1{
 }
 h2 {
     text-align: center;
-    color: white;
+    color: black;
 }
 
 
 
 ul {
     list-style-type: none;
-    padding: 0rem 2rem;
+    justify-content: space-between;
+    margin-right: 1rem ;
+    
 }
 
 li {
     margin-bottom: 10px;
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 1rem;
 
 
    
 }
-/* .income {
-    background-color: #dff0d8;
-    color: #3c763d;
+.income {
+    background-color: #b5e0a3;
+    color:rgb(31, 31, 141);
 }
 .expense {
     background-color: #f2dede;
-    color: #a94442; */
-
-
-#add-transaction input,
-#add-transaction select {
-    margin-right: 10px;
-    padding: 1rem 1.5rem;
+    color: #a94442;
 }
 
-#add-button {
-    padding: 5px 10px;
-    margin-top: 1rem;
-}

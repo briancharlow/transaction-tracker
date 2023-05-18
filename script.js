@@ -1,90 +1,97 @@
-// Select elements from the DOM
+// Get DOM elements
 const titleInput = document.getElementById('title');
 const categoryInput = document.getElementById('category');
 const amountInput = document.getElementById('amount');
-const addButton = document.getElementById('add-button');
 const transactionsList = document.getElementById('transactions');
+const addButton = document.getElementById('add-button');
 
-// Initialize the transactions array
+// Initialize transactions array
 let transactions = [];
+
+// Check if there are existing transactions in local storage
+if (localStorage.getItem('transactions')) {
+  transactions = JSON.parse(localStorage.getItem('transactions'));
+  renderTransactions();
+}
+
+// Add transaction event listener
+addButton.addEventListener('click', addTransaction);
 
 // Function to add a new transaction
 function addTransaction() {
-  // Get the values from the input fields
   const title = titleInput.value;
   const category = categoryInput.value;
-  const amount = parseInt(amountInput.value);
+  const amount = parseFloat(amountInput.value);
 
-  // Create a new transaction object
+  // Validate input
+  if (title.trim() === '' || isNaN(amount)) {
+    alert('Please enter a valid title and amount.');
+    return;
+  }
+
+  // Create new transaction object
   const transaction = {
-    title: title,
-    category: category,
-    amount: amount,
+    title,
+    category,
+    amount
   };
 
-  // Add the transaction to the transactions array
+  // Add transaction to the array
   transactions.push(transaction);
 
-  // Clear the input fields
+  // Save transactions to local storage
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+
+  // Clear input fields
   titleInput.value = '';
-  categoryInput.value = 'income';
   amountInput.value = '';
 
-  // Render the transactions on the page
+  // Render transactions
   renderTransactions();
 }
 
 // Function to delete a transaction
 function deleteTransaction(index) {
-  // Remove the transaction at the specified index
+  // Remove transaction from the array
   transactions.splice(index, 1);
 
-  // Render the transactions on the page
+  // Save transactions to local storage
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+
+  // Render transactions
   renderTransactions();
 }
 
-// Function to render the transactions on the page
+// Function to render transactions
 function renderTransactions() {
-  // Clear the transactions list
+  // Clear transaction list
   transactionsList.innerHTML = '';
 
-  // Iterate over the transactions array and create list items
+  // Loop through transactions and create list items
   for (let i = 0; i < transactions.length; i++) {
     const transaction = transactions[i];
 
-    // Create a list item element
+    // Create list item
     const listItem = document.createElement('li');
 
-    // Set the text content of the list item
-    listItem.textContent = `${transaction.title} - ${transaction.category} - ${transaction.amount}`;
+    // Set CSS class based on transaction category
+    listItem.className = transaction.category;
 
-    // Add a CSS class based on the transaction category
-    listItem.classList.add(transaction.category);
+    // Create transaction info
+    const transactionInfo = document.createElement('span');
+    transactionInfo.textContent = `${transaction.title} - $${transaction.amount}`;
 
-    // Create a delete button for each transaction
+    // Create delete button
     const deleteButton = document.createElement('button');
+    deleteButton.className='delete-button';
     deleteButton.textContent = 'Delete';
     deleteButton.addEventListener('click', () => deleteTransaction(i));
 
-    // Append the delete button to the list item
+    // Append transaction info and delete button to the list item
+    listItem.appendChild(transactionInfo);
     listItem.appendChild(deleteButton);
 
-    // Append the list item to the transactions list
+    // Append list item to the transaction list
     transactionsList.appendChild(listItem);
   }
-
-  // Apply styles to incomes and expenses
-  const incomeItems = document.getElementsByClassName('income');
-  const expenseItems = document.getElementsByClassName('expense');
-
-  for (let i = 0; i < incomeItems.length; i++) {
-    incomeItems[i].style.color = 'green';
-  }
-
-  for (let i = 0; i < expenseItems.length; i++) {
-    expenseItems[i].style.color = 'red';
-  }
 }
-
-// Add event listener to the add button
-addButton.addEventListener('click', addTransaction);
